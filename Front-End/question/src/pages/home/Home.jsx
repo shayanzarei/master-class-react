@@ -1,5 +1,13 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import './homeStyle.css';
+import QuestionCard from './components/QuestionCard';
+
+//package grid
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+
 
 const Home = () => {
     const [questions, setQuestions] = useState([]);
@@ -7,7 +15,7 @@ const Home = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const data = await axios.get('http://localhost:8000/api/home')
+            const data = await axios.get('/api/question')
             console.log(data.data.question);
             setQuestions(data.data.question)
         }
@@ -16,16 +24,13 @@ const Home = () => {
     }, [])
     return (
         <div>
-            Home page
-            {questions.map((question )=>(
-                <div key={question._id}>
-                    <h1>{question.question}</h1>
-                    <h3>{question.description}</h3>
-                    <br/>
-                    <br/>
-                    <br/>
-                </div>
-            ))}
+            <Box sx={{ flexGrow: 1 }} className="boxDesign">
+                <Grid container spacing={3} columns={15} >
+                    {questions.map((question )=>(
+                        <QuestionCard question={question}/>
+                    ))}
+                </Grid>
+            </Box>
         </div>
     )
 }
