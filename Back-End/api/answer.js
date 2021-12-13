@@ -8,7 +8,7 @@ const answerModel = require("../model/answerModel");
 answerRouter.post('/:id' , async (req, res) => {
     const { answer } = req.body
     let errors = [];
-    
+
     if (!answer) {
         errors.push({ msg: 'Please fill in answer input' })
     }
@@ -44,6 +44,7 @@ answerRouter.post('/:id/delete' ,async (req, res) => {
     })
 })
 
+//api for show an answer in new page
 answerRouter.get('/:id/show-answer' ,async(req, res) =>{
     const answer = await answerModel.findById(req.params.id)
     res.send({
@@ -51,6 +52,7 @@ answerRouter.get('/:id/show-answer' ,async(req, res) =>{
     })
 })
 
+//api for edit(update) an answer then save it to DB
 answerRouter.post('/:id/edit-answer' , async (req, res) => {
     await answerModel.findById(req.params.id)
     await answerModel.findByIdAndUpdate(req.params.id , req.body) ;
