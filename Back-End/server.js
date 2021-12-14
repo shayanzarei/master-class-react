@@ -1,7 +1,7 @@
 const express = require('express')
 require('./config/mongoose')
 const cookieParser =require('cookie-parser')
-const homeRouter = require('./api/home')
+
 const questionRouter = require('./api/question')
 const answerRouter = require('./api/answer')
 
@@ -33,7 +33,7 @@ app.use(express.json());
 //Routers
 // app.all('*' , checkUser)
 
-app.use("/api",homeRouter);
+
 app.use("/api/question",questionRouter);
 app.use("/api/answer",answerRouter);
 

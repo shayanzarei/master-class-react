@@ -3,6 +3,14 @@ const questionRouter = require('express').Router();
 const questionModel = require("../model/questionModel");
 const answerModel = require("../model/answerModel");
 
+
+questionRouter.get('/', async (req, res) => {
+    const question = await questionModel.find().populate('user').sort({ createdAt: -1 });
+    res.json({ 
+        question
+    })
+});
+
 //api for add new question to data base
 questionRouter.post('/add', async (req, res) => {
     const { question, description } = req.body
