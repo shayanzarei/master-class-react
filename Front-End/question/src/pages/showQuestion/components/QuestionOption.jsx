@@ -1,7 +1,6 @@
 import React,{ useState } from 'react'
 import axios from 'axios'
-import { Redirect } from "react-router-dom";
-
+import { Redirect , useHistory } from "react-router-dom";
 
 
 import Box from '@mui/material/Box';
@@ -14,7 +13,7 @@ import EditIcon from '@mui/icons-material/Edit';
 
 const QuestionOption = ({data}) => {
     const [redirect , setRedirect] = useState(false);
-
+    const history = useHistory();
 
     const deleteQuestion = () =>{
         axios.post(`/api/question/delete/${data.question._id}`)
@@ -23,6 +22,12 @@ const QuestionOption = ({data}) => {
             })
             .catch(err => console.log(err))
     }
+
+    const editQuestion = () =>{
+        history.push(`/edit-question/${data.question._id}`)
+    }
+
+
     if(redirect){ return <Redirect to="/"/>}
     return (
         <Box sx={{ height: 70, transform: 'translateZ(0px)', flexGrow: 1 }}>
@@ -40,6 +45,7 @@ const QuestionOption = ({data}) => {
             <SpeedDialAction
                 icon={<EditIcon/>}
                 tooltipTitle="Edit"
+                onClick={editQuestion}
             />
             </SpeedDial>
         </Box>

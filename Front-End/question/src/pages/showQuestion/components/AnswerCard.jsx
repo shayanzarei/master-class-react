@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import {useParams , useHistory} from 'react-router-dom'
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -12,12 +13,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 
-const AnswerCard = ({data}) => {
-    if(data){
-        console.log(data.answers)
-    }
+const AnswerCard = ({ data }) => {
+    let { id } = useParams();
+    const history = useHistory();
 
-    const handleDelete = (e) =>{
+    const handleDelete = (e) => {
         axios.post(`/api/answer/${e.currentTarget.id}/delete`)
             .then(res => {
                 window.location.reload(false);
@@ -25,9 +25,13 @@ const AnswerCard = ({data}) => {
             .catch(err => console.log(err))
     }
 
+    const handleEdit = (e) => {
+        history.push(`/edit-answer/${id}/${e.currentTarget.id}`)
+    }
+
     return (
-        <List sx={{ width: '100%',bgcolor: 'background.paper' }}>
-            { data && 
+        <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+            {data &&
                 data.answers.map((answer) => (
                     <React.Fragment key={answer._id}>
                         <ListItem alignItems="flex-start">
@@ -43,13 +47,13 @@ const AnswerCard = ({data}) => {
                                 <IconButton id={answer._id} onClick={handleDelete} aria-label="delete">
                                     <DeleteIcon sx={{ color: "#EB0014" }} />
                                 </IconButton>
-                                <IconButton color="primary" aria-label="delete">
+                                <IconButton id={answer._id} onClick={handleEdit} color="primary" aria-label="delete">
                                     <EditIcon color="primary" />
                                 </IconButton>
-                                </Stack>
+                            </Stack>
                         </ListItem>
-                        
-                        <Divider  component="li" />
+
+                        <Divider component="li" />
                     </React.Fragment>
                 ))
             }

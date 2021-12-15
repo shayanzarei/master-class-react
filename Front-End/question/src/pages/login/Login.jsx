@@ -28,7 +28,7 @@ const Login = () => {
                         required
                         type="email"
                         helperText="Please write your email"
-                        id="demo-helper-text-aligned"
+                        id="email"
                         label="Email"
                     />
                     <TextField
@@ -37,7 +37,7 @@ const Login = () => {
                         required
                         type="password"
                         helperText="Please write your password."
-                        id="demo-helper-text-aligned"
+                        id="password"
                         label="Password"
                     />
                     <Typography sx={{textAlign: 'left', fontSize: 14}}>
