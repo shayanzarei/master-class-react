@@ -6,8 +6,8 @@ import Home from './pages/home/Home';
 import AddQuestion from './pages/addQuestion/AddQuestion'
 import NotFound from './pages/notFound/NotFound';
 import Signup from './pages/signup/Signup';
-// import EditAnswer from './pages/editAnswer/EditAnswer'
-// import EditQuestion from './pages/editQuestion/EditQuestion';
+import EditAnswer from './pages/editAnswer/EditAnswer'
+import EditQuestion from './pages/editQuestion/EditQuestion';
 import ShowQuestion from './pages/showQuestion/ShowQuestion';
 
 //component
@@ -25,6 +25,8 @@ function App() {
           <Route exact path="/signup" component={Signup} /> 
           <Route exact path="/add-question" component={AddQuestion} /> 
           <Route exact path="/question/:id" component={ShowQuestion} /> 
+          <Route exact path="/edit-question/:id" component={EditQuestion} />
+          <Route exact path="/edit-answer/:questionId/:id" component={EditAnswer} />
           <Route component={NotFound}/>
         </Switch>
       </div>
