@@ -1,5 +1,7 @@
 
 import React from 'react'
+import { NavLink } from 'react-router-dom' ;
+
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -27,7 +29,7 @@ const QuestionCard = ({question}) => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" className="button">Show Question</Button>
+                    <Button component={NavLink} to={`/question/${question._id}`} sx={{ m: "auto" }} size="small" className="button">Show Question</Button>
                 </CardActions>
             </Card>
         </Grid>
