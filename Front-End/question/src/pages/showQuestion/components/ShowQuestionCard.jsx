@@ -43,7 +43,7 @@ const ShowQuestionCard = ({ data, user }) => {
     }
 
     return (
-        <Card sx={{ maxWidth: 600, m: "auto", mt: 10 }}>
+        <Card sx={{ maxWidth: 600, m: "auto", mt: 10 ,textAlign: 'center'}}>
             {user && data && data.question.user._id === user._id &&
                 <QuestionOption data={data} />
             }
@@ -61,7 +61,7 @@ const ShowQuestionCard = ({ data, user }) => {
                         <Alert severity="error">{errors}</Alert>
                     </Stack>
                 }
-                <Stack direction="row" spacing={1} sx={{ mt: 3 }}>
+                <Stack direction="row" spacing={1} sx={{ mt: 3 ,textAlign: 'center'}}>
                     <TextField
                         sx={{ mb: 3, width: "400px" }}
                         required

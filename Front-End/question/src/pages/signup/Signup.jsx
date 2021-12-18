@@ -51,7 +51,7 @@ const Signup = () => {
         <div>
             <Card sx={{ maxWidth: 500, m: "auto", mt: 5 }}>
                 <CardContent>
-                    <Box fullWidth sx={{ height: 60, backgroundColor: '#2196f3', mb: 5 }}>
+                    <Box fullWidth sx={{ height: 60, backgroundColor: '#2196f3', mb: 5,textAlign: 'center' }}>
                         <Typography sx={{ color: 'white', fontSize: 25, pt: 1.5 }}>
                             SignUp in our website
                         </Typography>

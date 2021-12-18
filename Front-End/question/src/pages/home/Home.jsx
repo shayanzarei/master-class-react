@@ -23,8 +23,8 @@ const Home = () => {
     }, [])
     return (
         <div>
-            <Box sx={{ flexGrow: 1 }} className="boxDesign">
-                <Grid container spacing={3} columns={15} >
+            <Box sx={{ flexGrow: 1 , textAlign: 'center'}} className="boxDesign">
+                <Grid sx={{ textAlign: 'center' }} container spacing={3} columns={15} >
                     {questions.map((question, index) => (
                         <QuestionCard question={question} key={index} />
                     ))}

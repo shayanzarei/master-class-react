@@ -22,7 +22,8 @@ const Login = (props) => {
     const [errors, setErrors] = useState([]);
     const history = useHistory();
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         const user = {
             email,
             password,
@@ -46,7 +47,7 @@ const Login = (props) => {
         <div>
             <Card sx={{ maxWidth: 500, m: "auto", mt: 10 }}>
                 <CardContent>
-                    <Box fullWidth sx={{ height: 60, backgroundColor: '#2196f3', mb: 5 }}>
+                    <Box fullWidth sx={{ height: 60, backgroundColor: '#2196f3', mb: 5 ,textAlign: 'center'}}>
                         <Typography sx={{ color: 'white', fontSize: 25, pt: 1.5 }}>
                             Login to your account
                         </Typography>
