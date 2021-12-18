@@ -1,7 +1,5 @@
-//import { Component } from 'react'
 import { useState } from 'react';
 import { Redirect } from "react-router-dom";
-
 import axios from 'axios'
 
 //add question card
@@ -23,7 +21,7 @@ function AddQuestion() {
     const [question, setQuestion] = useState('');
     const [description, setDescription] = useState('');
     const [errors, setErrors] = useState([]);
-    const [redirect , setRedirect] = useState(false);
+    const [redirect, setRedirect] = useState(false);
 
     const handleSubmit = () => {
         const data = {
@@ -34,9 +32,10 @@ function AddQuestion() {
 
         axios.post('/api/question/add', data)
             .then(res => {
-                if(res.data.errors){
+                console.log(res)
+                if (res.data.errors) {
                     setErrors(res.data.errors)
-                }else{
+                } else {
                     setQuestion('')
                     setDescription('')
                     setRedirect(true)
@@ -44,7 +43,7 @@ function AddQuestion() {
             })
             .catch(err => console.log(err))
     }
-    if(redirect){ return <Redirect to="/"/>}
+    if (redirect) { return <Redirect to="/" /> }
     return (
         <Card sx={{ maxWidth: 500, m: "auto", mt: 8 }}>
             <CardContent>
@@ -54,14 +53,12 @@ function AddQuestion() {
                     </Typography>
                 </Box>
                 {
-                    errors.map((error)=>(
-                        <Stack sx={{ width: '100%' , mb:4}} spacing={2}>
+                    errors.map((error) => (
+                        <Stack sx={{ width: '100%', mb: 4 }} spacing={2}>
                             <Alert severity="error">{error.msg}</Alert>
                         </Stack>
                     ))
-                    
                 }
-                
                 <TextField
                     fullWidth
                     required

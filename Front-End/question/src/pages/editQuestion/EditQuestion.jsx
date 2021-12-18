@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useHistory, useParams } from "react-router-dom";
-
 import axios from 'axios'
 
 //add question card
@@ -12,8 +11,6 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
-
 
 
 const EditQuestion = () => {
@@ -29,12 +26,10 @@ const EditQuestion = () => {
         }
         axios.post(`/api/question/update/${id}`, data)
             .then(res => {
-                console.log(res)
                 history.push(`/question/${id}`)
             })
             .catch(err => console.log(err))
     }
-
     return (
         <Card sx={{ maxWidth: 500, m: "auto", mt: 8 }}>
             <CardContent>
