@@ -5,17 +5,17 @@ require('dotenv').config()
 
 const checkUser = (req, res, next) => {
     const token = req.cookies.jwt;
-    if(token){
+    if (token) {
         jwt.verify(token, process.env.JWT_SECURE_KEY, (err, decoded) => {
-            if(err){
+            if (err) {
                 res.locals.user = null;
                 next();
             }
-            if(decoded){
+            if (decoded) {
                 User.findById(decoded.id)
-                    .then( user => {
-                        const {username, email, id} = user;
-                        res.locals.user = {username, email, id};
+                    .then(user => {
+                        const { username, email, id } = user;
+                        res.locals.user = { username, email, id };
                         next()
                     })
                     .catch(err => {
@@ -38,14 +38,14 @@ const isLogin = (req, res, next) => {
     if (token) {
         jwt.verify(token, process.env.JWT_SECURE_KEY, (err, decodedToken) => {
             if (err) {
-                res.redirect("/login");
+                res.json(token);
             } else {
                 next();
             }
         });
     } else {
-        res.redirect("/login");
+        res.redirect(token);
     }
 };
 
-module.exports = {checkUser , isLogin}
+module.exports = { checkUser, isLogin }

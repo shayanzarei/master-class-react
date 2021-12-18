@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useHistory, useParams } from "react-router-dom";
-
 import axios from 'axios'
 
 //add question card
@@ -14,23 +13,21 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 const EditAnswer = () => {
-    const [answer, setAnswer] = useState('');
 
-    let { id , questionId} = useParams();
+    const [answer, setAnswer] = useState('');
+    let { id, questionId } = useParams();
     const history = useHistory()
 
     const handleSubmit = () => {
         const data = {
             answer,
         }
-        axios.post(`/api/answer/${id}/edit-answer`,data)
-        .then(res =>{
-            console.log(res)
-            history.push(`/question/${questionId}`)
-        })
-        .catch(err=>console.log(err))
+        axios.post(`/api/answer/${id}/edit-answer`, data)
+            .then(res => {
+                history.push(`/question/${questionId}`)
+            })
+            .catch(err => console.log(err))
     }
-
     return (
         <Card sx={{ maxWidth: 500, m: "auto", mt: 8 }}>
             <CardContent>
@@ -39,7 +36,6 @@ const EditAnswer = () => {
                         Edit your answer
                     </Typography>
                 </Box>
-
                 <TextField
                     fullWidth
                     required

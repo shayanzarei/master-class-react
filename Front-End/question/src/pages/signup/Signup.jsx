@@ -23,8 +23,6 @@ const Signup = () => {
     const [errors, setErrors] = useState([]);
     const history = useHistory()
 
-
-
     const handleSubmit = () => {
         const user = {
             username,
@@ -49,24 +47,22 @@ const Signup = () => {
             .catch(err => console.log(err))
     }
 
-
     return (
         <div>
             <Card sx={{ maxWidth: 500, m: "auto", mt: 5 }}>
                 <CardContent>
-                    <Box fullWidth sx={{ height: 60, backgroundColor: '#2196f3', mb: 5 }}>
+                    <Box fullWidth sx={{ height: 60, backgroundColor: '#2196f3', mb: 5,textAlign: 'center' }}>
                         <Typography sx={{ color: 'white', fontSize: 25, pt: 1.5 }}>
                             SignUp in our website
                         </Typography>
                     </Box>
                     {
-                        errors.map((error , index)=>(
-                            <Stack key={index} sx={{ width: '100%' , mb:4}} spacing={2}>
+                        errors.map((error, index) => (
+                            <Stack key={index} sx={{ width: '100%', mb: 4 }} spacing={2}>
                                 <Alert severity="error">{error.msg}</Alert>
                             </Stack>
-                    ))
-                    
-                }
+                        ))
+                    }
                     <TextField
                         fullWidth
                         sx={{ mb: 3 }}

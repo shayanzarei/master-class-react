@@ -16,7 +16,6 @@ const Home = () => {
     useEffect(() => {
         async function fetchData() {
             const data = await axios.get('/api/question')
-            console.log(data.data.question);
             setQuestions(data.data.question)
         }
         fetchData();
@@ -24,10 +23,10 @@ const Home = () => {
     }, [])
     return (
         <div>
-            <Box sx={{ flexGrow: 1 }} className="boxDesign">
-                <Grid container spacing={3} columns={15} >
-                    {questions.map((question , index )=>(
-                        <QuestionCard question={question}  key={index}/>
+            <Box sx={{ flexGrow: 1 , textAlign: 'center'}} className="boxDesign">
+                <Grid sx={{ textAlign: 'center' }} container spacing={3} columns={15} >
+                    {questions.map((question, index) => (
+                        <QuestionCard question={question} key={index} />
                     ))}
                 </Grid>
             </Box>

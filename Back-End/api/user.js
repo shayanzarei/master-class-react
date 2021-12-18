@@ -1,10 +1,10 @@
 const User = require('../model/userModel')
 const emailValidator = require('email-validator')
 const bcrypt = require('bcrypt');
-const {createToken} = require('../middleware/createToken');
+const { createToken } = require('../middleware/createToken');
 const userRouter = require('express').Router();
 
-userRouter.post('/signup',async (req, res) => {
+userRouter.post('/signup', async (req, res) => {
     //put req.body(input of signup page) inside 
     const { username, email, password, password2 } = req.body;
 
@@ -30,20 +30,20 @@ userRouter.post('/signup',async (req, res) => {
         errors.push({ msg: 'Passwords do not match' })
     }
     //if we have at least one error
-    if (errors.length > 0){
+    if (errors.length > 0) {
         res.json({
             errors,
         })
-    } else{ //every things okay with validation input then ...
-        user = await User.findOne({email: email})
-        if(user){ //if email before registered  
+    } else { //every things okay with validation input then ...
+        user = await User.findOne({ email: email })
+        if (user) { //if email before registered  
             errors.push({ msg: 'Email is already registered' })
             res.json({
                 errors,
             })
-        //if every thing okay (we don't have any input validation error and no
-        // user register as same as email input in our DB before )
-        } else { 
+            //if every thing okay (we don't have any input validation error and no
+            // user register as same as email input in our DB before )
+        } else {
             const newUser = new User({
                 username,
                 email,
@@ -59,16 +59,67 @@ userRouter.post('/signup',async (req, res) => {
                     //save user
                     await newUser.save()
                     res.json({
-                        user : newUser
-                    })  
+                        user: newUser
+                    })
                 })
             });
         }
     }
 })
 
+userRouter.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    let errors = [];
+
+    // checked required field
+    if (!email || !password) {
+        errors.push({ msg: 'Please fill in all fields' })
+    }
+    //email validation
+    if (email && !emailValidator.validate(email)) {
+        errors.push({ msg: 'Please write a valid email' })
+    }
+    //check pass length 
+    if (password && password.length < 6) {
+        errors.push({ msg: 'Password should be more than 6 character' })
+    }
+    //if we have at least one error
+    if (errors.length > 0) {
+        res.json({
+            errors,
+        })
+        //if every thing okay (we don't have any input validation error and no
+        // user register as same as email input in our DB before )
+    } else {
+        user = await User.findOne({ email: email })
+        if (!user) {
+            errors.push({ msg: 'Email is not exist' })
+            res.json({
+                errors,
+            })
+        } else {
+            const match = await bcrypt.compare(password, user.password)
+            if (!match) {
+                errors.push({ msg: 'Password is not correct' })
+                res.json({
+                    errors,
+                })
+            } else {
+                const token = createToken(user._id)
+                res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 });
+                res.json({
+                    token,
+                    user
+                });
+            }
+        }
+
+    }
+})
+
+userRouter.get('/logout', async (res, req) => {
+
+})
 
 
 module.exports = userRouter;
-
-        

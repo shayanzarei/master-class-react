@@ -7,4 +7,4 @@ const createToken = (id) => {
     });
 };
 
-module.exports = {createToken}
+module.exports = { createToken }

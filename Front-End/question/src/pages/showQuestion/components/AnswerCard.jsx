@@ -1,19 +1,17 @@
 import React from 'react'
 import axios from 'axios'
-import {useParams , useHistory} from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
-
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-
-const AnswerCard = ({ data }) => {
+const AnswerCard = ({ data, user }) => {
     let { id } = useParams();
     const history = useHistory();
 
@@ -43,16 +41,17 @@ const AnswerCard = ({ data }) => {
                                     </React.Fragment>
                                 }
                             />
-                            <Stack direction="row">
-                                <IconButton id={answer._id} onClick={handleDelete} aria-label="delete">
-                                    <DeleteIcon sx={{ color: "#EB0014" }} />
-                                </IconButton>
-                                <IconButton id={answer._id} onClick={handleEdit} color="primary" aria-label="delete">
-                                    <EditIcon color="primary" />
-                                </IconButton>
-                            </Stack>
+                            {user && user._id === answer.user._id &&
+                                <Stack direction="row">
+                                    <IconButton id={answer._id} onClick={handleDelete} aria-label="delete">
+                                        <DeleteIcon sx={{ color: "#EB0014" }} />
+                                    </IconButton>
+                                    <IconButton id={answer._id} onClick={handleEdit} color="primary" aria-label="delete">
+                                        <EditIcon color="primary" />
+                                    </IconButton>
+                                </Stack>
+                            }
                         </ListItem>
-
                         <Divider component="li" />
                     </React.Fragment>
                 ))

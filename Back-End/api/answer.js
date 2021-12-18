@@ -1,11 +1,9 @@
 const answerRouter = require('express').Router();
-// const userModel = require("../model/userModel");
 const questionModel = require("../model/questionModel");
 const answerModel = require("../model/answerModel");
 
-
 //api for add answer in question page (we have question id in url ) 
-answerRouter.post('/:id' , async (req, res) => {
+answerRouter.post('/:id', async (req, res) => {
     const { answer } = req.body
     let errors = [];
 
@@ -27,25 +25,25 @@ answerRouter.post('/:id' , async (req, res) => {
         const newAnswer = new answerModel({
             answer,
             question,
-            // user: res.locals.user.id
+            user: res.locals.user.id
         })
         await newAnswer.save()
         res.json({
-            answer : newAnswer
+            answer: newAnswer
         })
     }
 })
 
 //api for delete a answer
-answerRouter.post('/:id/delete' ,async (req, res) => {
+answerRouter.post('/:id/delete', async (req, res) => {
     await answerModel.findByIdAndDelete(req.params.id)
     res.json({
-        msg : "deleted"
+        msg: "deleted"
     })
 })
 
 //api for show an answer in new page
-answerRouter.get('/:id/show-answer' ,async(req, res) =>{
+answerRouter.get('/:id/show-answer', async (req, res) => {
     const answer = await answerModel.findById(req.params.id)
     res.send({
         answer
@@ -53,14 +51,12 @@ answerRouter.get('/:id/show-answer' ,async(req, res) =>{
 })
 
 //api for edit(update) an answer then save it to DB
-answerRouter.post('/:id/edit-answer' , async (req, res) => {
+answerRouter.post('/:id/edit-answer', async (req, res) => {
     await answerModel.findById(req.params.id)
-    await answerModel.findByIdAndUpdate(req.params.id , req.body) ;
+    await answerModel.findByIdAndUpdate(req.params.id, req.body);
     res.json({
-        msg : "updated successfully"
+        msg: "updated successfully"
     })
 })
-
-
 
 module.exports = answerRouter;
